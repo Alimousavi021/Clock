@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: linear-gradient(120deg, rgba(138, 9, 9, 0.626), rgba(64, 9, 9, 0.79), rgb(19, 18, 18));
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .s {
+            height: 170px;
+            background-color: red !important;
+        }
+
+        .m {
+            height: 130px;
+        }
+
+        .h {
+            height: 80px;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: column;
+
+            >.circle {
+                width: 500px;
+                height: 500px;
+                border-radius: 50%;
+                display: flex;
+                border: 7px solid rgb(50, 2, 2);
+                box-shadow: 5px 5px 5px 5px rgb(84, 2, 2);
+                background-image: url(img/g.jpg);
+                background-size: cover;
+                position: relative;
+
+                >.middle {
+                    width: 15px;
+                    height: 15px;
+                    border-radius: 50%;
+                    background-color: black;
+                    position: absolute;
+                    left: 50%;
+                    bottom: 50%;
+                    transform: translate(-48%, 50%);
+                }
+
+                >span {
+                    background-color: black;
+                    display: flex;
+                    width: 3px;
+                    position: absolute;
+                    bottom: 50%;
+                    left: 50%;
+                    transform-origin: bottom;
+                    border-radius: 50%;
+                    transform: translate(-50%);
+                }
+            }
+
+            #digi {
+                font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+                font-size: 50px;
+                color: rgb(36, 6, 6);
+                text-align: center;
+                margin-top: 20px;
+
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="row">
+        <div class="circle">
+            <div class="middle"></div>
+            <span class="s"></span>
+            <span class="m"></span>
+            <span class="h"></span>
+        </div>
+        <h2 id="digi"></h2>
+    </div>
+</body>
+<script>
+    const s = document.querySelector('.s');
+    const m = document.querySelector(".m");
+    const h = document.querySelector(".h");
+    const digi = document.getElementById('digi');
+
+    let d = new Date()
+    let hour = d.getHours();
+    let min = d.getMinutes();
+    let sec = d.getSeconds();
+
+
+    setInterval(() => {
+        if (sec < 59) {
+            sec++
+            s.style.transform = 'rotate(' + ((sec * 6)) + 'deg)'
+        } else {
+            sec = 0
+            if (min < 59) {
+                min++
+            } else {
+                min = 0
+                if (hour < 23) {
+                    hour++
+                } else {
+                    hour = 0
+                }
+            }
+        }
+        h.style.transform = 'rotate(' + ((hour * 30) + (min / 2)) + 'deg)'
+        m.style.transform = 'rotate(' + (min * 6) + 'deg)'
+        digi.innerHTML = hour + ':' + min + ':' + sec
+
+    }, 1000);
+
+</script>
+
+</html>
